@@ -3,7 +3,7 @@ function applyMask(text, mask, force /* = true*/ ) {
     var textCounter = 0;
     
     // force param default value
-    force = (null == force) ? true : force;
+    force = ('undefined' === typeof force) ? true : force;
     
     // remove all non allphanumerics
     text = (text + '').replace(/[^a-zA-z0-9]/gi, '');
