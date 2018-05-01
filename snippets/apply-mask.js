@@ -1,22 +1,21 @@
-function applyMask(text, mask, force /* = true*/ ) {
+function applyMask (text, mask, strict) {
     var result = '';
     var textCounter = 0;
     
-    // force param default value
-    force = ('undefined' === typeof force) ? true : force;
+    // strict param default value = false
+    force = ('undefined' === typeof strict) ? false : strict;
     
     // remove all non allphanumerics
     text = (text + '').replace(/[^a-zA-z0-9]/gi, '');
 
-    if (!force) {
-        var maskLength = mask.replace(/[^a-zA-z]/gi, '').length;
+    if (strict) {
+        var maskLength = mask.replace(/[^X]/gi, '').length;
         if (maskLength !== text.length) return false;
-    }
+	}
 
     for (var i = 0; i < mask.length; i++) {
         if ('X' === mask[i]) {
-            if (null == text[textCounter]) break;
-
+            if ('undefined' === typeof text[textCounter]) break;
             result += text[textCounter];
             textCounter++;
         } else {
@@ -35,17 +34,22 @@ console.log(applyMask('12232569666', 'XXX.XXX.XXX-XX')); // => 122.325.696-66
 console.log(applyMask('02162018', 'XX/XX/XXXX')); // => 02/16/2018
 
 // Hour
-console.log(applyMask('162000', 'XX:XX:XX', true)); // => 16:20:00
+console.log(applyMask('162000', 'XX:XX:XX')); // => 16:20:00
 
 // Example with text input as "date input"
 var input = document.getElementById('my-input');
-input.addEventListener('keydown', function(evt) {
+input.addEventListener('keyup', function(evt) {
     // ignores backspace key
-    if ( evt.keyCode === 8 ) return false;
+	var mask = 'XX/XX/XXXX';
+	var content = this.value || '';
+	
+    if ( evt.keyCode === 8 ) {
+		return false;
+	}
     
-    var value = applyMask(this.value, 'XX/XX/XXXX');
+    var newValue = applyMask(content, mask);
 
     // you need validate/sanitize the input
 
-    this.value = value;
+    this.value = newValue;
 });
