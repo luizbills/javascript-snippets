@@ -1,55 +1,55 @@
-function applyMask (text, mask, strict) {
-    var result = '';
-    var textCounter = 0;
-    
-    // strict param default value = false
-    force = ('undefined' === typeof strict) ? false : strict;
-    
-    // remove all non allphanumerics
-    text = (text + '').replace(/[^a-zA-z0-9]/gi, '');
+function applyMask(text, mask, strict = false) {
+  let result = '';
+  let textCounter = 0;
 
-    if (strict) {
-        var maskLength = mask.replace(/[^X]/gi, '').length;
-        if (maskLength !== text.length) return false;
-	}
+  // remove all non allphanumerics
+  text = (text + '').replace(/[^a-zA-z0-9]/gi, '');
 
-    for (var i = 0; i < mask.length; i++) {
-        if ('X' === mask[i]) {
-            if ('undefined' === typeof text[textCounter]) break;
-            result += text[textCounter];
-            textCounter++;
-        } else {
-            result += mask[i] || '';
-        }
+  if (strict) {
+    var maskLength = mask.replace(/[^\X]/gi, '').length;
+    if (maskLength !== text.length) return false;
+  }
+
+  for (const char of mask) {
+    if ('X' === char) {
+      if ('undefined' === typeof text[textCounter]) break;
+      result += text[textCounter];
+      textCounter++;
+    } else {
+      result += char || '';
     }
-    return result;
+  }
+  return result;
 }
 
 // # Usage
 
 // CPF
-console.log(applyMask('12232569666', 'XXX.XXX.XXX-XX')); // => 122.325.696-66
+console.log(applyMask(12345678900, 'XXX.XXX.XXX-XX')); // => 123.456.789-00
 
 // Date
 console.log(applyMask('02162018', 'XX/XX/XXXX')); // => 02/16/2018
 
 // Hour
-console.log(applyMask('162000', 'XX:XX:XX')); // => 16:20:00
+console.log(applyMask(162000, 'XX:XX:XX')); // => 16:20:00
+
+// Price
+console.log(applyMask(29, 'R$ XX,00')); // => 16:20:00
 
 // Example with text input as "date input"
 var input = document.getElementById('my-input');
 input.addEventListener('keyup', function(evt) {
-    // ignores backspace key
-	var mask = 'XX/XX/XXXX';
-	var content = this.value || '';
-	
-    if ( evt.keyCode === 8 ) {
-		return false;
-	}
-    
-    var newValue = applyMask(content, mask);
+  // ignores backspace key
+  var mask = 'XX/XX/XXXX';
+  var content = this.value || '';
 
-    // you need validate/sanitize the input
+  if (evt.keyCode === 8) {
+    return false;
+  }
 
-    this.value = newValue;
+  var newValue = applyMask(content, mask);
+
+  // you need validate/sanitize the input
+
+  this.value = newValue;
 });
