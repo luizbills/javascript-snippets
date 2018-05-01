@@ -34,8 +34,7 @@ console.log(applyMask('02162018', 'XX/XX/XXXX')); // => 02/16/2018
 console.log(applyMask(162000, 'XX:XX:XX')); // => 16:20:00
 
 // Price
-console.log(applyMask(29, 'R$ XX,00')); // => 16:20:00
-
+console.log(applyMask(29, 'R$ XX,00')); // => R$ 29,00
 // Example with text input as "date input"
 var input = document.getElementById('my-input');
 input.addEventListener('keyup', function(evt) {
