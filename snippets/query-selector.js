@@ -1,15 +1,14 @@
-function $ (selector, el) {
+function $ (selector, el = null) {
     if (!el) {
         el = document;
     }
     return el.querySelector(selector);
 }
 
-function $$ (selector, el, returnArray) {
-    returnArray = 'undefined' === typeof returnArray ? true : returnArray; // default is true
+function $$ (selector, el = null, returnArray = true) {
     if (!el) {
         el = document;
     }
-    var res = el.querySelectorAll(selector);
-    return returnArray ? Array.prototype.slice.call(res) : res; 
+    const res = el.querySelectorAll(selector);
+    return returnArray ? Array.from(res) : res; 
 }
