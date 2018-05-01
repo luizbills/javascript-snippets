@@ -1,8 +1,8 @@
 function renderTemplate(template, data) {
-    var result = template;
-    for (var key in data) {
+    let result = template;
+    for (const key in data) {
         if (data.hasOwnProperty(key)) {
-            var regex = new RegExp('{{\\s*' + key + '\\s*}}', 'g');
+            const regex = new RegExp('{{\\s*' + key + '\\s*}}', 'g');
             result = result.replace(regex, data[key]);
         }
     }
