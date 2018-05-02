@@ -9,6 +9,9 @@ function renderTemplate(template, data) {
     return result;
 }
 
+// Note: 
+// a more robust and yet lightweight template engine: https://github.com/jasonmoo/t.js
+
 // Usage
 
 var template = 'hello {{ name }}!'
