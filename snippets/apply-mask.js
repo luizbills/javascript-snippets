@@ -38,15 +38,15 @@ console.log(applyMask(29, 'R$ XX,00')); // => R$ 29,00
 
 // Example with text input as "date input"
 var input = document.getElementById('my-input');
+
 input.addEventListener('keyup', function(evt) {
   // ignores backspace key
-  var mask = 'XX/XX/XXXX';
-  var content = this.value || '';
-
   if (evt.keyCode === 8) {
     return false;
   }
-
+  
+  var mask = 'XX/XX/XXXX';
+  var content = this.value || '';
   var newValue = applyMask(content, mask);
 
   // you need validate/sanitize the input
