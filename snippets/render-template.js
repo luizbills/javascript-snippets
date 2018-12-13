@@ -1,8 +1,9 @@
 function renderTemplate(template, data) {
+	let brackets = [ '{{', '}}' ];
     let result = template;
     for (const key in data) {
         if (data.hasOwnProperty(key)) {
-            const regex = new RegExp('{{\\s*' + key + '\\s*}}', 'g');
+            const regex = new RegExp(brackets[0] + '\\s*' + key + '\\s*' + brackets[1], 'g');
             result = result.replace(regex, data[key]);
         }
     }
