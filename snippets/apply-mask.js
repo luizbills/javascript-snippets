@@ -52,4 +52,5 @@ input.addEventListener('keyup', function(evt) {
   // you need validate/sanitize the input
 
   this.value = newValue;
+  this.maxLength = mask.length;
 });
