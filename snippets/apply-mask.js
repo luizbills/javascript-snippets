@@ -1,25 +1,22 @@
-function applyMask(text, mask, strict = false) {
-  let result = '';
-  let textCounter = 0;
+function applyMask (text, mask) {
+	let result = '';
 
-  // remove all non allphanumerics
-  text = (text + '').replace(/[^a-zA-z0-9]/gi, '');
+	// remove all non allphanumerics
+	const _text = (text + '').replace(/[^a-zA-z0-9]/gi, '');
 
-  if (strict) {
-    var maskLength = mask.replace(/[^\X]/gi, '').length;
-    if (maskLength !== text.length) return false;
-  }
+	for (let i = 0, j = 0, len = mask.length; i < len; i++) {
+	    if (!_text[j]) break;
 
-  for (const char of mask) {
-    if ('X' === char) {
-      if ('undefined' === typeof text[textCounter]) break;
-      result += text[textCounter];
-      textCounter++;
-    } else {
-      result += char || '';
-    }
-  }
-  return result;
+		if ('X' === mask[i]) {
+			result += _text[j]
+			j++
+		} else {
+			result += mask[i] || '';
+			j = j > 0 ? j-- : 0;
+		}
+	}
+
+	return result;
 }
 
 // # Usage
@@ -39,12 +36,7 @@ console.log(applyMask(29, 'R$ XX,00')); // => R$ 29,00
 // Example with text input as "date input"
 var input = document.getElementById('my-input');
 
-input.addEventListener('keyup', function(evt) {
-  // ignores backspace key
-  if (evt.keyCode === 8) {
-    return false;
-  }
-  
+input.addEventListener('input', function(evt) {  
   var mask = 'XX/XX/XXXX';
   var content = this.value || '';
   var newValue = applyMask(content, mask);
