@@ -20,6 +20,7 @@ function applyMoneyMask(element, precision = 2, sepDecimals = '.', sepThousands 
   }
 
   element.addEventListener('input', callback);
+  element.dispatchEvent(new window.Event('input'));
 
   return () => element.removeEventListener('input', callback);
 }
