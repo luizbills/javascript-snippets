@@ -4,6 +4,7 @@ function applyMoneyMask(element, precision = 2, sepDecimals = '.', sepThousands 
   const callback = function (evt) {
     const target = evt.target;
     let value = target.value.replace(/[^0-9]/g, '');
+    if (!value) return;
 
     precision = Math.abs(precision)
     value = value.padStart(1 + precision, '0');
@@ -20,7 +21,7 @@ function applyMoneyMask(element, precision = 2, sepDecimals = '.', sepThousands 
   }
 
   element.addEventListener('input', callback);
-  element.dispatchEvent(new window.Event('input'));
+  if (element.value) element.dispatchEvent(new window.Event('input'));
 
   return () => element.removeEventListener('input', callback);
 }
