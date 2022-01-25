@@ -7,7 +7,9 @@ function applyMoneyMask(element, precision = 2, sepDecimals = '.', sepThousands 
     if (!value) return;
 
     precision = Math.abs(precision)
-    value = value.padStart(1 + precision, '0');
+    if (!value.includes(',')) value = value.padEnd(1 + precision, '0')
+    else value = value.padStart(1 + precision, '0');
+
     value = Number(value.slice(0, -precision) + '.' + value.slice(-precision))
 
     target.value = number_format(
