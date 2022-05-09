@@ -3,12 +3,11 @@ function applyMoneyMask(element, precision = 2, sepDecimals = '.', sepThousands 
 
   const callback = function (evt) {
     const target = evt.target;
-    let value = target.value.replace(/[^0-9]/g, '');
+    let value = target.value
     if (!value) return;
 
     precision = Math.abs(precision)
-    if (!value.includes(',')) value = value.padEnd(1 + precision, '0')
-    else value = value.padStart(1 + precision, '0');
+    value = value.replace(/[^0-9]/g, '').padStart(1 + precision, '0');
 
     value = Number(value.slice(0, -precision) + '.' + value.slice(-precision))
 
