@@ -15,5 +15,5 @@ export const escapeHTML = (str) => {
 	});
 }
 
-## usage
+// usage
 escapeHTML('<div></div>'); // => "&lt;div&gt;&lt;&#x2F;div&gt;"
