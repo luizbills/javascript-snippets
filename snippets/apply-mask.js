@@ -1,7 +1,7 @@
   function applyMask (text, mask) {
     let result = '';
     // remove all non allphanumerics
-    const _text = (text + '').replace(/[^a-zA-z0-9]/gi, '');
+    const _text = (text + '').replace(/[^a-z0-9]/gi, '');
     for (let i = 0, j = 0, len = mask.length; i < len; i++) {
       if (!_text[j]) break;
       if ('X' === mask[i]) {
