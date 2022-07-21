@@ -1,19 +1,19 @@
-  function applyMask (text, mask) {
-    let result = '';
-    // remove all non allphanumerics
-    const _text = (text + '').replace(/[^a-z0-9]/gi, '');
-    for (let i = 0, j = 0, len = mask.length; i < len; i++) {
-      if (!_text[j]) break;
-      if ('X' === mask[i]) {
-        result += _text[j]
-        j++
-      } else {
-        result += mask[i] || '';
-        j = j > 0 ? j-- : 0;
-      }
+function applyMask (text, mask) {
+  let result = '';
+  // remove all non allphanumerics
+  const _text = (text + '').replace(/[^a-z0-9]/gi, '');
+  for (let i = 0, j = 0, len = mask.length; i < len; i++) {
+    if (!_text[j]) break;
+    if ('X' === mask[i]) {
+      result += _text[j]
+      j++
+    } else {
+      result += mask[i] || '';
+      j = j > 0 ? j-- : 0;
     }
-    return result;
   }
+  return result;
+}
 
 // # Usage
 
